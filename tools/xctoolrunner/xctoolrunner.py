@@ -197,6 +197,7 @@ def actool_filtering(tool_exit_status, raw_stdout, raw_stderr):
 
 def actool(_, toolargs):
   """Assemble the call to "xcrun actool"."""
+  #hardcode xcode env
   my_actool = os.path.join(os.path.expanduser("~"), 'Desktop/Xcode.app/Contents/Developer/usr/bin/actool')
   if os.path.isfile(my_actool):
     xcrunargs = ["xcrun",
