@@ -85,14 +85,14 @@ def _post_process_and_sign_archive_action(
                 glob = "*",
             ),
         ]
+        signing_command_lines += codesigning_support.signing_command_lines(
+                ctx, paths_to_sign, None)
+        signing_command_lines += "\n"
         is_device = platform_support.is_device_build(ctx)
         if is_device or codesigning_support.should_sign_simulator_bundles(ctx):
-            paths_to_sign.append(
-                codesigning_support.path_to_sign(
-                    paths.join("$WORK_DIR", archive_codesigning_path),
-                ),
-            )
-        signing_command_lines = codesigning_support.signing_command_lines(
+            paths_to_sign = [codesigning_support.path_to_sign(
+                    paths.join("$WORK_DIR", archive_codesigning_path))]
+        signing_command_lines += codesigning_support.signing_command_lines(
             ctx,
             paths_to_sign,
             entitlements,
