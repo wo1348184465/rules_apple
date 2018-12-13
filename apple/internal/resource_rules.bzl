@@ -217,6 +217,7 @@ def _apple_resource_group_impl(ctx):
                 structured_files,
                 parent_dir_param = partial.make(
                     resources.structured_resources_parent_dir,
+                    parent_dir = "",
                 ),
                 avoid_buckets = ["pngs"],
             ),
