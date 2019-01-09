@@ -62,16 +62,17 @@ def _codesigning_command(ctx, entitlements, frameworks_path, bundle_path = ""):
                 use_entitlements = False,
             ),
         ]
+        signing_command_lines += codesigning_support.signing_command_lines(
+                ctx, paths_to_sign, None)
         is_device = platform_support.is_device_build(ctx)
         if is_device or codesigning_support.should_sign_simulator_bundles(ctx):
-            paths_to_sign.append(
-                codesigning_support.path_to_sign(paths.join("$WORK_DIR", bundle_path)),
+            paths_to_sign = [codesigning_support.path_to_sign(paths.join("$WORK_DIR", bundle_path))]
+            signing_command_lines += "\n"
+            signing_command_lines += codesigning_support.signing_command_lines(
+                ctx,
+                paths_to_sign,
+                entitlements,
             )
-        signing_command_lines = codesigning_support.signing_command_lines(
-            ctx,
-            paths_to_sign,
-            entitlements,
-        )
 
     return signing_command_lines
 
