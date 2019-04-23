@@ -124,6 +124,10 @@ def _codesign_args_for_path(
                 "--entitlements",
                 maybe_quote(entitlements_file.path),
             ])
+        else:
+            cmd_codesigning.extend([
+                "--preserve-metadata=identifier,entitlements,flags",
+            ])
         cmd_codesigning.append("--force")
     else:
         cmd_codesigning.extend([
