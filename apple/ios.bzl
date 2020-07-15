@@ -41,6 +41,7 @@ load(
     "@build_bazel_rules_apple//apple/internal:ios_rules.bzl",
     _ios_application = "ios_application",
     _ios_extension = "ios_extension",
+    _ios_widgetkit_extension = "ios_widgetkit_extension",
     _ios_framework = "ios_framework",
     _ios_imessage_application = "ios_imessage_application",
     _ios_imessage_extension = "ios_imessage_extension",
@@ -73,6 +74,21 @@ def ios_extension(name, **kwargs):
     )
 
     _ios_extension(
+        name = name,
+        **bundling_args
+    )
+
+def ios_widgetkit_extension(name, **kwargs):
+    """Builds and bundles an iOS application extension."""
+    bundling_args = binary_support.create_binary(
+        name,
+        str(apple_common.platform_type.ios),
+        apple_product_type.widgetkit_extension,
+        extension_safe = True,
+        **kwargs
+    )
+
+    _ios_widgetkit_extension(
         name = name,
         **bundling_args
     )
