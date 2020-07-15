@@ -41,6 +41,7 @@ load(
     _macos_command_line_application = "macos_command_line_application",
     _macos_dylib = "macos_dylib",
     _macos_extension = "macos_extension",
+    _macos_widgetkit_extension = "macos_widgetkit_extension",
     _macos_kernel_extension = "macos_kernel_extension",
     _macos_quick_look_plugin = "macos_quick_look_plugin",
     _macos_spotlight_importer = "macos_spotlight_importer",
@@ -270,6 +271,25 @@ def macos_extension(name, **kwargs):
     )
 
     _macos_extension(
+        name = name,
+        **bundling_args
+    )
+
+def macos_widgetkit_extension(name, **kwargs):
+    """Packages a macOS Extension Bundle."""
+    binary_args = dict(kwargs)
+
+    features = binary_args.pop("features", [])
+    features += ["link_cocoa"]
+
+    bundling_args = binary_support.add_entitlements_and_swift_linkopts(
+        name,
+        platform_type = str(apple_common.platform_type.macos),
+        features = features,
+        **binary_args
+    )
+
+    _macos_widgetkit_extension(
         name = name,
         **bundling_args
     )

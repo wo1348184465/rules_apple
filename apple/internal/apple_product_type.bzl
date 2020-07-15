@@ -86,6 +86,7 @@ type of rule being created and thus its descriptor to control behaviors.
 apple_product_type = struct(
     application = "com.apple.product-type.application",
     app_extension = "com.apple.product-type.app-extension",
+    widgetkit_extension = "com.apple.product-type.app-extension.widgetkit",
     bundle = "com.apple.product-type.bundle",
     dylib = "com.apple.product-type.library.dynamic",
     framework = "com.apple.product-type.framework",

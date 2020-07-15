@@ -231,6 +231,26 @@ _RULE_TYPE_DESCRIPTORS = {
                 "@executable_path/../../Frameworks",
             ],
         ),
+        # ios_widgetkit_extension
+        apple_product_type.widgetkit_extension: _describe_rule_type(
+            allowed_device_families = ["iphone", "ipad", "mac"],
+            allows_locale_trimming = True,
+            app_icon_parent_extension = ".xcassets",
+            app_icon_extension = ".appiconset",
+            bundle_extension = ".appex",
+            extra_linkopts = [
+                # migrated to a proper rule and not a macro with an apple_binary.
+                # Migrate to -fapplication-extension, like the other rules, once ios_widgetkit_extension is
+                "-application_extension",
+            ],
+            mandatory_families = True,
+            product_type = apple_product_type.widgetkit_extension,
+            rpaths = [
+                # Extension binaries live in Application.app/PlugIns/Extension.appex/Extension
+                # Frameworks are packaged in Application.app/Frameworks
+                "@executable_path/../../Frameworks",
+            ],
+        ),
         # ios_framework
         apple_product_type.framework: _describe_rule_type(
             allowed_device_families = ["iphone", "ipad"],
@@ -412,6 +432,26 @@ _RULE_TYPE_DESCRIPTORS = {
                 "_NSExtensionMain",
             ],
             product_type = apple_product_type.app_extension,
+            provisioning_profile_extension = ".provisionprofile",
+            requires_signing_for_device = False,
+            rpaths = [
+                # Extension binaries live in
+                # Application.app/Contents/PlugIns/Extension.appex/Contents/MacOS/Extension
+                # Frameworks are packaged in Application.app/Contents/Frameworks
+                "@executable_path/../../../../Frameworks",
+            ],
+            rule_transition = transition_support.apple_rule_transition,
+        ),
+        # macos_widgetkit_extension
+        apple_product_type.widgetkit_extension: _describe_rule_type(
+            allowed_device_families = ["mac"],
+            allows_locale_trimming = True,
+            app_icon_parent_extension = ".xcassets",
+            app_icon_extension = ".appiconset",
+            bundle_extension = ".appex",
+            bundle_locations = _DEFAULT_MACOS_BUNDLE_LOCATIONS,
+            deps_cfg = apple_common.multi_arch_split,
+            product_type = apple_product_type.widgetkit_extension,
             provisioning_profile_extension = ".provisionprofile",
             requires_signing_for_device = False,
             rpaths = [

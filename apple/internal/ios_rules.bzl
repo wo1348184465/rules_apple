@@ -540,6 +540,13 @@ ios_extension = rule_factory.create_apple_bundling_rule(
     doc = "Builds and bundles an iOS Application Extension.",
 )
 
+ios_widgetkit_extension = rule_factory.create_apple_bundling_rule(
+    implementation = _ios_extension_impl,
+    platform_type = "ios",
+    product_type = apple_product_type.widgetkit_extension,
+    doc = "Builds and bundles an iOS WidgetKit Extension.",
+)
+
 ios_framework = rule_factory.create_apple_bundling_rule(
     implementation = _ios_framework_impl,
     platform_type = "ios",

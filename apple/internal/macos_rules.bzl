@@ -497,6 +497,13 @@ macos_extension = rule_factory.create_apple_bundling_rule(
     doc = "Builds and bundles a macOS Application Extension.",
 )
 
+macos_widgetkit_extension = rule_factory.create_apple_bundling_rule(
+    implementation = _macos_extension_impl,
+    platform_type = "macos",
+    product_type = apple_product_type.widgetkit_extension,
+    doc = "Builds and bundles a macOS Application WidgetKit Extension.",
+)
+
 macos_quick_look_plugin = rule_factory.create_apple_bundling_rule(
     implementation = _macos_quick_look_plugin_impl,
     platform_type = "macos",
